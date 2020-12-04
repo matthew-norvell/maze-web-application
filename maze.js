@@ -9,8 +9,16 @@ const tiles = {
 const difficulty = {
   "EASY": [10, 10],
   "MEDIUM": [20, 20],
-  "HARD": [30, 30]
+  "HARD": [40, 40]
 }
+
+const sprites = {
+  0: "wall.png",
+  1: "floor.png",
+  2: "start.png",
+  3: "end.png"
+}
+
 function mazeFromSeed(initSeed, diff){
   //create new number generator object
   var rng = new Math.seedrandom(initSeed);
@@ -28,7 +36,7 @@ function mazeFromSeed(initSeed, diff){
   //valid counts the number of maze iterations
   //TODO: implement a way to check when the maze is complete instead
   var valid = 0;
-  while(valid < 10000){
+  while(valid < 100000){
 
     //generate a locaiton for a new loop
     var seedLength = Math.floor(rng() * length % length);
@@ -121,6 +129,8 @@ function mazeFromSeed(initSeed, diff){
     }
     valid++;
   }
+mazeTiles[0][0] = tiles.START;
+mazeTiles[length - 1][width - 1] = tiles.END;
 return mazeTiles;
 }
 
@@ -150,9 +160,8 @@ function loadMaze(maze){
     var row = mazeContainer.insertRow(i);
     for(var j = 0; j < maze[0].length; j++){
       var cell = row.insertCell(j);
-      cell.innerHTML = maze[i][j];
-      //cell.innerHTML = "<img src='./" + sprite + "'>";
+      cell.innerHTML = "<img src='./" + sprites[maze[i][j]] + "'>";
     }
   }
 }
-loadMaze(mazeFromSeed("test", "EASY"));
+loadMaze(mazeFromSeed("test", "HARD"));
