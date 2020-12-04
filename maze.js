@@ -6,10 +6,16 @@ const tiles = {
     END: 3
 }
 
-function mazeFromSeed(initSeed, length, width){
+const difficulty = {
+  "EASY": [10, 10],
+  "MEDIUM": [20, 20],
+  "HARD": [30, 30]
+}
+function mazeFromSeed(initSeed, diff){
   //create new number generator object
   var rng = new Math.seedrandom(initSeed);
-
+  var length = difficulty[diff][0];
+  var width = difficulty[diff][1];
   //create 2d array to represent maze tiles
   var mazeTiles = new Array(length).fill(tiles.WALL);
   for(var i = 0; i < length; i++){
@@ -83,10 +89,15 @@ function mazeFromSeed(initSeed, length, width){
           console.log("DEFAULT");
       }
 
+      console.log("loop is at: " + seedLength.toString() + ", " + seedWidth.toString())
       //loop is encountering itself
       //checkneighbors must be greater than 1 to ignore previous tile
-      if((loopTiles[seedLength][seedWidth] == tiles.FLOOR) || (checkNeighbors(loopTiles, seedLength, seedWidth) > 1) || reject){
+      if((loopTiles[seedLength][seedWidth] == tiles.FLOOR) || (checkNeighbors(loopTiles, seedLength, seedWidth) > 1)){
+        console.log("loop is encountering itself")
         break;
+      } else if(reject) {
+        console.log("loop has hit a wall")
+        continue;
       } else {
         //if loop hasnt encountered itself, add tile to loop
         loopTiles[seedLength][seedWidth] = tiles.FLOOR;
@@ -134,17 +145,16 @@ function checkNeighbors(arr, length, width){
 }
 
 //takes a seed and difficulty and displays it in the table with id "mazeContainer"
-function loadMaze(seed, difficulty){
-  var mazeArray = mazeFromSeed(seed, 8, 8);
-  console.table(mazeArray);
+function loadMaze(maze){
+  console.table(maze);
   var mazeContainer = document.getElementById("mazeContainer");
-  for(var i = 0; i < 8; i++){
+  for(var i = 0; i < maze.length; i++){
     var row = mazeContainer.insertRow(i);
-    for(var j = 0; j < 8; j++){
+    for(var j = 0; j < maze[0].length; j++){
       var cell = row.insertCell(j);
-      cell.innerHTML = mazeArray[i][j];
+      cell.innerHTML = maze[i][j];
       //cell.innerHTML = "<img src='./" + sprite + "'>";
     }
   }
 }
-loadMaze("test", "hard");
+loadMaze(mazeFromSeed("test", "EASY"));
