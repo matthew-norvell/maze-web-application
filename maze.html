@@ -12,6 +12,27 @@
   <div class="container">
   Maze page
   <a href="complete.html"><button type="button" class="btn">Submit Score</button></a>
+  <div>
+    DEBUG
+    <script>
+    function genMaze() {
+        var diff = document.getElementsByName('difficulty');
+
+        for(i = 0; i < diff.length; i++) {
+            if(diff[i].checked)
+            loadMaze(mazeFromSeed(document.getElementById("seed").value, diff[i].value))
+        }
+    }
+    </script>
+    seed:
+    <input type="text" id="seed">
+    <input type="radio" name="difficulty" value="EASY">easy
+    <input type="radio" name="difficulty" value="MEDIUM">medium
+    <input type="radio" name="difficulty" value="HARD">hard
+    <button type="button" onclick="genMaze()">
+    generate maze
+    </button>
+  </div>
   <table id="mazeContainer">
   </table>
   </div>

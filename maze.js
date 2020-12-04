@@ -156,6 +156,7 @@ function checkNeighbors(arr, length, width){
 function loadMaze(maze){
   console.table(maze);
   var mazeContainer = document.getElementById("mazeContainer");
+  mazeContainer.innerHTML = "";
   for(var i = 0; i < maze.length; i++){
     var row = mazeContainer.insertRow(i);
     for(var j = 0; j < maze[0].length; j++){
