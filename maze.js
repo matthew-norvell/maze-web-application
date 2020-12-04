@@ -22,14 +22,13 @@ function mazeFromSeed(initSeed, diff){
     mazeTiles[i] = new Array(width).fill(tiles.WALL);
   }
 
-  //initialize start and end points
-  mazeTiles[0][0] = tiles.START;
-  mazeTiles[length - 1][width - 1] = tiles.END;
+  //initialize maze start for loop to build from
+  mazeTiles[0][0] = tiles.FLOOR;
 
   //valid counts the number of maze iterations
   //TODO: implement a way to check when the maze is complete instead
   var valid = 0;
-  while(valid < 1000){
+  while(valid < 10000){
 
     //generate a locaiton for a new loop
     var seedLength = Math.floor(rng() * length % length);
@@ -50,7 +49,6 @@ function mazeFromSeed(initSeed, diff){
     for(var i = 0; i < length; i++){
       loopTiles[i] = new Array(width).fill(tiles.WALL);
     }
-    startLoop = loopTiles[seedLength][seedWidth];
 
 
     while(!reject){
@@ -92,7 +90,7 @@ function mazeFromSeed(initSeed, diff){
       console.log("loop is at: " + seedLength.toString() + ", " + seedWidth.toString())
       //loop is encountering itself
       //checkneighbors must be greater than 1 to ignore previous tile
-      if((loopTiles[seedLength][seedWidth] == tiles.FLOOR) || (checkNeighbors(loopTiles, seedLength, seedWidth) > 1)){
+      if((loopTiles[seedLength][seedWidth] == tiles.FLOOR) || (checkNeighbors(loopTiles, seedLength, seedWidth) > 1) || checkNeighbors(mazeTiles, seedLength, seedWidth) > 1){
         console.log("loop is encountering itself")
         break;
       } else if(reject) {
