@@ -14,9 +14,14 @@
       </fieldset>
     <br>
     <button type="submit" id="search" class="btn">Search Username</button>
+    <table class="table table-bordered table-hover" id="usernamelist">
+    </table>
   </div>
 </body>
 </html>
+
+<!--TODO: Search functionality
+          Implement buttons that send seed data to maze generation.-->
 
 <script>
 $("#search").click(function(){
@@ -28,6 +33,16 @@ $("#search").click(function(){
   else {
     alert("No stored usernames")
   }
+
+  var table = '';
+  var rows = storage.usernames.length;
+  for(var i = 0; i < rows; i++) {
+    table += '<tr><td>' + storage.usernames[i].name + '</td><td>' + storage.usernames[i].time + '</td></tr>';
+
+  }
+  document.getElementById('usernamelist').innerHTML = table
+
+
 
 
 })
