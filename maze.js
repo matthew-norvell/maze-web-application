@@ -35,20 +35,21 @@ function mazeFromSeed(initSeed, diff){
 
   //valid counts the number of maze iterations
   //TODO: implement a way to check when the maze is complete instead
-  var valid = 0;
-  while(valid < 100000){
+  var valid = true;
+  while(valid){
+
+    valid = false
 
     //generate a locaiton for a new loop
     var seedLength = Math.floor(rng() * length % length);
     var seedWidth = Math.floor(rng() * width % width);
 
 
-    //initialize accept or reject variables
+    //initialize reject variable
     var reject = false;
 
-    //rejects the loop if a maze is adjacent, eliminating two-wide hallways
+    //rejects the loop if a maze is adjacent, eliminating two-wide hallways < 100000
     if(checkNeighbors(mazeTiles, seedLength, seedWidth)){
-      console.log("rejecting as maze is adjacent");
       reject = true;
     }
 
@@ -92,17 +93,14 @@ function mazeFromSeed(initSeed, diff){
           }
           break;
         default:
-          console.log("DEFAULT");
+          reject = true;
       }
 
-      console.log("loop is at: " + seedLength.toString() + ", " + seedWidth.toString())
       //loop is encountering itself
       //checkneighbors must be greater than 1 to ignore previous tile
       if((loopTiles[seedLength][seedWidth] == tiles.FLOOR) || (checkNeighbors(loopTiles, seedLength, seedWidth) > 1) || checkNeighbors(mazeTiles, seedLength, seedWidth) > 1){
-        console.log("loop is encountering itself")
         break;
       } else if(reject) {
-        console.log("loop has hit a wall")
         continue;
       } else {
         //if loop hasnt encountered itself, add tile to loop
@@ -119,15 +117,33 @@ function mazeFromSeed(initSeed, diff){
         for(var i = 0; i < length; i++){
           for(var j = 0; j < width; j++){
             if(mazeTiles[i][j] == tiles.WALL && loopTiles[i][j] == tiles.FLOOR){
-              console.log("Accepting:" + i.toString() + ", " + j.toString());
               mazeTiles[i][j] = tiles.FLOOR;
             }
           }
         }
-        break;
+        reject = true;
       }
     }
-    valid++;
+
+    //checks to see if maze generation is complete
+    var i = 1;
+    while(i < length - 1 && !valid){
+      var j = 1;
+      while(j < width - 1 && !valid){
+        if(checkNeighbors(mazeTiles, i, j) < 1){
+          var diagonal_tiles = 0;
+          diagonal_tiles += mazeTiles[i + 1][j + 1];
+          diagonal_tiles += mazeTiles[i + 1][j - 1];
+          diagonal_tiles += mazeTiles[i - 1][j + 1];
+          diagonal_tiles += mazeTiles[i - 1][j - 1];
+          if(diagonal_tiles < 1){
+            valid = true;
+          }
+        }
+        j++;
+      }
+      i++;
+    }
   }
 mazeTiles[0][0] = tiles.START;
 mazeTiles[length - 1][width - 1] = tiles.END;
@@ -154,7 +170,6 @@ function checkNeighbors(arr, length, width){
 
 //takes a seed and difficulty and displays it in the table with id "mazeContainer"
 function loadMaze(maze){
-  console.table(maze);
   var mazeContainer = document.getElementById("mazeContainer");
   mazeContainer.innerHTML = "";
   for(var i = 0; i < maze.length; i++){
