@@ -6,12 +6,14 @@ const tiles = {
     END: 3
 }
 
+//constants representing each difficulty by its maze size
 const difficulty = {
-  "EASY": [10, 10],
-  "MEDIUM": [20, 20],
-  "HARD": [40, 40]
+  "EASY": [20, 20],
+  "MEDIUM": [40, 40],
+  "HARD": [60, 60]
 }
 
+//constants representing each sprite by its file name
 const sprites = {
   0: "wall.png",
   1: "floor.png",
@@ -34,11 +36,8 @@ function mazeFromSeed(initSeed, diff){
   mazeTiles[0][0] = tiles.FLOOR;
 
   //valid counts the number of maze iterations
-  //TODO: implement a way to check when the maze is complete instead
   var valid = true;
   while(valid){
-
-    valid = false
 
     //generate a locaiton for a new loop
     var seedLength = Math.floor(rng() * length % length);
@@ -126,6 +125,7 @@ function mazeFromSeed(initSeed, diff){
     }
 
     //checks to see if maze generation is complete
+    valid = false;
     var i = 1;
     while(i < length - 1 && !valid){
       var j = 1;
@@ -153,7 +153,7 @@ var i = 0;
 while(mazeTiles[endLength][endWidth] != tiles.END){
   var j = 0;
   while(j <= i){
-    if(checkNeighbors(mazeTiles, endLength - i, endLength - j) == 1){
+    if(checkNeighbors(mazeTiles, endLength - i, endWidth - j) == 1){
       endLength -= i;
       endWidth -= j;
       mazeTiles[endLength][endWidth] = tiles.END;
@@ -163,7 +163,6 @@ while(mazeTiles[endLength][endWidth] != tiles.END){
   }
   i++;
 }
-//mazeTiles[length - 1][width - 1] = tiles.END;
 return mazeTiles;
 }
 
@@ -185,16 +184,30 @@ function checkNeighbors(arr, length, width){
     return tile_total;
 }
 
-//takes a seed and difficulty and displays it in the table with id "mazeContainer"
+//takes a seed and difficulty and displays it in the canvas with id "mazeCanvas"
 function loadMaze(maze){
-  var mazeContainer = document.getElementById("mazeContainer");
-  mazeContainer.innerHTML = "";
+  var scale = 16
+  var mazeCanvas = document.getElementById("mazeCanvas");
+  mazeCanvas.height = (maze.length + 2) * scale;
+  mazeCanvas.width = (maze[0].length + 2) * scale;
+  var mazeContext = mazeCanvas.getContext("2d");
   for(var i = 0; i < maze.length; i++){
-    var row = mazeContainer.insertRow(i);
     for(var j = 0; j < maze[0].length; j++){
-      var cell = row.insertCell(j);
-      cell.innerHTML = "<img src='./" + sprites[maze[i][j]] + "'>";
+      var img = new Image();
+      img.src = sprites[maze[i][j]];
+      mazeContext.drawImage(img, scale*(i + 1), scale*(j + 1));
     }
   }
+  for(var i = 0; i < maze.length + 2; i++){
+    var img = new Image();
+    img.src = sprites[tiles.WALL];
+    mazeContext.drawImage(img, scale*i, 0);
+    mazeContext.drawImage(img, scale*i, scale*(maze.length + 1));
+  }
+  for(var j = 0; j < maze[0].length + 2; j++){
+    var img = new Image();
+    img.src = sprites[tiles.WALL];
+    mazeContext.drawImage(img, 0, scale*j);
+    mazeContext.drawImage(img, scale*(maze.length + 1), scale*j);
+  }
 }
-loadMaze(mazeFromSeed("test", "HARD"));
