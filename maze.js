@@ -146,7 +146,24 @@ function mazeFromSeed(initSeed, diff){
     }
   }
 mazeTiles[0][0] = tiles.START;
-mazeTiles[length - 1][width - 1] = tiles.END;
+
+var endLength = length - 1;
+var endWidth = width - 1;
+var i = 0;
+while(mazeTiles[endLength][endWidth] != tiles.END){
+  var j = 0;
+  while(j <= i){
+    if(checkNeighbors(mazeTiles, endLength - i, endLength - j) == 1){
+      endLength -= i;
+      endWidth -= j;
+      mazeTiles[endLength][endWidth] = tiles.END;
+      break;
+    }
+    j++;
+  }
+  i++;
+}
+//mazeTiles[length - 1][width - 1] = tiles.END;
 return mazeTiles;
 }
 
