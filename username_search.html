@@ -10,7 +10,7 @@
   <div class="container">
       <fieldset>
         <legend>Username Search</legend>
-        <input type="text" class="form-control" id="usernameSearch" placeholder="Insert Username">
+        <input type="text" class="form-control" id="usernameSearch" placeholder="Insert Username"/>
       </fieldset>
     <br>
     <button type="submit" id="search" class="btn">Search Username</button>
@@ -26,26 +26,36 @@
 
 <script>
 $("#search").click(function(){
+  let i;
   let storage
-  if (localStorage.getItem('usernames')){
+  let searchedName=document.getElementById("usernameSearch").value
+  let returnedUsernames = []
+  if (localStorage.getItem('usernames')) {
     storage = JSON.parse(localStorage.getItem('usernames'))
-    alert(JSON.stringify(storage))
+
+    for (i = 0; i < storage.usernames.length; i++) {
+      let testname = storage.usernames[i].name
+      alert(testname + " " + searchedName)
+      if (testname  === searchedName) {
+        returnedUsernames.push(storage.usernames[i])
+      }
+    }
+    if (returnedUsernames.length != 0) {
+      let table = '';
+      const rows = returnedUsernames.length;
+      for (i = 0; i < rows; i++) {
+        table += '<tr><td>' + returnedUsernames[i].name + '</td><td>' + returnedUsernames[i].time + '</td><td>' + '<button>Select</button>' + '</td></tr>';
+
+      }
+      document.getElementById('usernamelist').innerHTML = table;
+    }
+    else {
+      alert("No Matched Usernames");
+    }
   }
-  else {
-    alert("No stored usernames")
+else {
+    alert("No stored usernames");
   }
-
-  var table = '';
-  var rows = storage.usernames.length;
-  for(var i = 0; i < rows; i++) {
-    table += '<tr><td>' + storage.usernames[i].name + '</td><td>' + storage.usernames[i].time +'</td><td>' + '<button>Select</button>' +'</td></tr>';
-
-  }
-  document.getElementById('usernamelist').innerHTML = table
-
-
-
-
 })
 
 
