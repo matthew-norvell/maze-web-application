@@ -13,7 +13,7 @@ const difficulty = {
   "HARD": [60, 40]
 }
 
-//constants representing each sprite by its file name
+//constants that loadSprites() fills with loaded images corresponding to tiles
 const sprites = {
   0: "wall.png",
   1: "floor.png",
@@ -191,23 +191,28 @@ function loadMaze(maze){
   mazeCanvas.height = (maze[0].length + 2) * scale;
   mazeCanvas.width = (maze.length + 2) * scale;
   var mazeContext = mazeCanvas.getContext("2d");
-  for(var i = 0; i < maze.length; i++){
+  for(var i = 0; i < maze.length; i++) {
     for(var j = 0; j < maze[0].length; j++){
-      var img = new Image();
-      img.src = sprites[maze[i][j]];
-      mazeContext.drawImage(img, scale*(i + 1), scale*(j + 1));
+      mazeContext.drawImage(sprites[maze[i][j]], scale*(i + 1), scale*(j + 1));
     }
   }
   for(var i = 0; i < maze.length + 2; i++){
-    var img = new Image();
-    img.src = sprites[tiles.WALL];
-    mazeContext.drawImage(img, scale*i, 0);
-    mazeContext.drawImage(img, scale*i, scale*(maze[0].length + 1));
+    mazeContext.drawImage(sprites[tiles.WALL], scale*i, 0);
+    mazeContext.drawImage(sprites[tiles.WALL], scale*i, scale*(maze[0].length + 1));
   }
   for(var j = 0; j < maze[0].length + 2; j++){
-    var img = new Image();
-    img.src = sprites[tiles.WALL];
-    mazeContext.drawImage(img, 0, scale*j);
-    mazeContext.drawImage(img, scale*(maze.length + 1), scale*j);
+    mazeContext.drawImage(sprites[tiles.WALL], 0, scale*j);
+    mazeContext.drawImage(sprites[tiles.WALL], scale*(maze.length + 1), scale*j);
   }
 }
+
+//loads the sprites for use in displaying the maze
+function loadSprites(){
+  for(var i = 0; i <= 3; i++){
+    var img = new Image();
+    img.src = sprites[i];
+    sprites[i] = img;
+  }
+}
+
+loadSprites();
