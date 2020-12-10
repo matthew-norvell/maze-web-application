@@ -14,6 +14,7 @@
       </fieldset>
     <br>
     <button type="submit" id="search" class="btn">Search Username</button>
+    <br>
     <table class="table table-bordered table-hover" id="usernamelist">
     </table>
   </div>
@@ -37,7 +38,7 @@ $("#search").click(function(){
   var table = '';
   var rows = storage.usernames.length;
   for(var i = 0; i < rows; i++) {
-    table += '<tr><td>' + storage.usernames[i].name + '</td><td>' + storage.usernames[i].time + '</td></tr>';
+    table += '<tr><td>' + storage.usernames[i].name + '</td><td>' + storage.usernames[i].time +'</td><td>' + '<button>Select</button>' +'</td></tr>';
 
   }
   document.getElementById('usernamelist').innerHTML = table
