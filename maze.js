@@ -10,7 +10,7 @@ const tiles = {
 const difficulty = {
   "EASY": [20, 20],
   "MEDIUM": [40, 40],
-  "HARD": [60, 60]
+  "HARD": [60, 40]
 }
 
 //constants representing each sprite by its file name
@@ -188,8 +188,8 @@ function checkNeighbors(arr, length, width){
 function loadMaze(maze){
   var scale = 16
   var mazeCanvas = document.getElementById("mazeCanvas");
-  mazeCanvas.height = (maze.length + 2) * scale;
-  mazeCanvas.width = (maze[0].length + 2) * scale;
+  mazeCanvas.height = (maze[0].length + 2) * scale;
+  mazeCanvas.width = (maze.length + 2) * scale;
   var mazeContext = mazeCanvas.getContext("2d");
   for(var i = 0; i < maze.length; i++){
     for(var j = 0; j < maze[0].length; j++){
@@ -202,7 +202,7 @@ function loadMaze(maze){
     var img = new Image();
     img.src = sprites[tiles.WALL];
     mazeContext.drawImage(img, scale*i, 0);
-    mazeContext.drawImage(img, scale*i, scale*(maze.length + 1));
+    mazeContext.drawImage(img, scale*i, scale*(maze[0].length + 1));
   }
   for(var j = 0; j < maze[0].length + 2; j++){
     var img = new Image();
