@@ -7,7 +7,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body onload="mazeInit()">
 
   <div class="container">
   Maze page
@@ -20,7 +20,7 @@
 
         for(i = 0; i < diff.length; i++) {
             if(diff[i].checked)
-            loadMaze(mazeFromSeed(document.getElementById("seed").value, diff[i].value))
+            loadMaze(mazeFromSeed(Math.random(), diff[i].value))
         }
     }
     </script>

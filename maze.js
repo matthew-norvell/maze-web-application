@@ -215,4 +215,21 @@ function loadSprites(){
   }
 }
 
+function mazeInit(){
+  var diff = sessionStorage.difficulty;
+  if(difficulty.hasOwnProperty(diff)){
+    var seed = Math.random();
+    sessionStorage.seed = seed;
+    loadMaze(mazeFromSeed(seed, diff));
+  } else {
+    var canvas = document.getElementById("mazeCanvas");
+    canvas.height = 200;
+    canvas.width = 600;
+    var context = mazeCanvas.getContext("2d");
+    context.font = "30px Arial";
+    context.fillText("Invalid difficulty! Please select difficulty", 10, 50);
+    context.fillText("from the difficulty select page.", 10, 100);
+  }
+}
+
 loadSprites();
