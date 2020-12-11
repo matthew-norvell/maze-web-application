@@ -6,12 +6,14 @@ const tiles = {
     END: 3
 }
 
+//constants representing each difficulty by its maze size
 const difficulty = {
-  "EASY": [10, 10],
-  "MEDIUM": [20, 20],
-  "HARD": [40, 40]
+  "EASY": [20, 20],
+  "MEDIUM": [40, 40],
+  "HARD": [60, 40]
 }
 
+//constants that loadSprites() fills with loaded images corresponding to tiles
 const sprites = {
   0: "wall.png",
   1: "floor.png",
@@ -20,10 +22,12 @@ const sprites = {
 }
 
 function mazeFromSeed(initSeed, diff){
+
   //create new number generator object
   var rng = new Math.seedrandom(initSeed);
   var length = difficulty[diff][0];
   var width = difficulty[diff][1];
+
   //create 2d array to represent maze tiles
   var mazeTiles = new Array(length).fill(tiles.WALL);
   for(var i = 0; i < length; i++){
@@ -33,22 +37,19 @@ function mazeFromSeed(initSeed, diff){
   //initialize maze start for loop to build from
   mazeTiles[0][0] = tiles.FLOOR;
 
-  //valid counts the number of maze iterations
-  //TODO: implement a way to check when the maze is complete instead
-  var valid = 0;
-  while(valid < 100000){
+  //maze checks istelf every loop to see if it can still generate new tiles
+  var valid = true;
+  while(valid){
 
     //generate a locaiton for a new loop
     var seedLength = Math.floor(rng() * length % length);
     var seedWidth = Math.floor(rng() * width % width);
 
-
-    //initialize accept or reject variables
+    //initialize reject variable
     var reject = false;
 
     //rejects the loop if a maze is adjacent, eliminating two-wide hallways
     if(checkNeighbors(mazeTiles, seedLength, seedWidth)){
-      console.log("rejecting as maze is adjacent");
       reject = true;
     }
 
@@ -92,17 +93,14 @@ function mazeFromSeed(initSeed, diff){
           }
           break;
         default:
-          console.log("DEFAULT");
+          reject = true;
       }
 
-      console.log("loop is at: " + seedLength.toString() + ", " + seedWidth.toString())
       //loop is encountering itself
       //checkneighbors must be greater than 1 to ignore previous tile
       if((loopTiles[seedLength][seedWidth] == tiles.FLOOR) || (checkNeighbors(loopTiles, seedLength, seedWidth) > 1) || checkNeighbors(mazeTiles, seedLength, seedWidth) > 1){
-        console.log("loop is encountering itself")
         break;
       } else if(reject) {
-        console.log("loop has hit a wall")
         continue;
       } else {
         //if loop hasnt encountered itself, add tile to loop
@@ -119,18 +117,54 @@ function mazeFromSeed(initSeed, diff){
         for(var i = 0; i < length; i++){
           for(var j = 0; j < width; j++){
             if(mazeTiles[i][j] == tiles.WALL && loopTiles[i][j] == tiles.FLOOR){
-              console.log("Accepting:" + i.toString() + ", " + j.toString());
               mazeTiles[i][j] = tiles.FLOOR;
             }
           }
         }
-        break;
+        reject = true;
       }
     }
-    valid++;
+
+    //checks to see if maze generation is complete
+    valid = false;
+    var i = 1;
+    while(i < length - 1 && !valid){
+      var j = 1;
+      while(j < width - 1 && !valid){
+        if(checkNeighbors(mazeTiles, i, j) < 1){
+          var diagonal_tiles = 0;
+          diagonal_tiles += mazeTiles[i + 1][j + 1];
+          diagonal_tiles += mazeTiles[i + 1][j - 1];
+          diagonal_tiles += mazeTiles[i - 1][j + 1];
+          diagonal_tiles += mazeTiles[i - 1][j - 1];
+          if(diagonal_tiles < 1){
+            valid = true;
+          }
+        }
+        j++;
+      }
+      i++;
+    }
   }
 mazeTiles[0][0] = tiles.START;
-mazeTiles[length - 1][width - 1] = tiles.END;
+
+//searches for the nearest floor tile and places an exit next to it
+var endLength = length - 1;
+var endWidth = width - 1;
+var i = 0;
+while(mazeTiles[endLength][endWidth] != tiles.END){
+  var j = 0;
+  while(j <= i){
+    if(checkNeighbors(mazeTiles, endLength - i, endWidth - j) == 1){
+      endLength -= i;
+      endWidth -= j;
+      mazeTiles[endLength][endWidth] = tiles.END;
+      break;
+    }
+    j++;
+  }
+  i++;
+}
 return mazeTiles;
 }
 
@@ -152,17 +186,53 @@ function checkNeighbors(arr, length, width){
     return tile_total;
 }
 
-//takes a seed and difficulty and displays it in the table with id "mazeContainer"
+//takes a seed and difficulty and displays it in the canvas with id "mazeCanvas"
 function loadMaze(maze){
-  console.table(maze);
-  var mazeContainer = document.getElementById("mazeContainer");
-  mazeContainer.innerHTML = "";
-  for(var i = 0; i < maze.length; i++){
-    var row = mazeContainer.insertRow(i);
+  var scale = 16
+  var mazeCanvas = document.getElementById("mazeCanvas");
+  mazeCanvas.height = (maze[0].length + 2) * scale;
+  mazeCanvas.width = (maze.length + 2) * scale;
+  var mazeContext = mazeCanvas.getContext("2d");
+  for(var i = 0; i < maze.length; i++) {
     for(var j = 0; j < maze[0].length; j++){
-      var cell = row.insertCell(j);
-      cell.innerHTML = "<img src='./" + sprites[maze[i][j]] + "'>";
+      mazeContext.drawImage(sprites[maze[i][j]], scale*(i + 1), scale*(j + 1));
     }
   }
+  for(var i = 0; i < maze.length + 2; i++){
+    mazeContext.drawImage(sprites[tiles.WALL], scale*i, 0);
+    mazeContext.drawImage(sprites[tiles.WALL], scale*i, scale*(maze[0].length + 1));
+  }
+  for(var j = 0; j < maze[0].length + 2; j++){
+    mazeContext.drawImage(sprites[tiles.WALL], 0, scale*j);
+    mazeContext.drawImage(sprites[tiles.WALL], scale*(maze.length + 1), scale*j);
+  }
 }
-loadMaze(mazeFromSeed("test", "HARD"));
+
+//loads the sprites for use in displaying the maze
+function loadSprites(){
+  for(var i = 0; i <= 3; i++){
+    var img = new Image();
+    img.src = sprites[i];
+    sprites[i] = img;
+  }
+}
+
+//initiate the maze generation and display when the page loads
+function mazeInit(){
+  var diff = sessionStorage.difficulty;
+  if(difficulty.hasOwnProperty(diff)){
+    var seed = Math.random();
+    sessionStorage.seed = seed;
+    loadMaze(mazeFromSeed(seed, diff));
+  } else {
+    var canvas = document.getElementById("mazeCanvas");
+    canvas.height = 200;
+    canvas.width = 600;
+    var context = mazeCanvas.getContext("2d");
+    context.font = "30px Arial";
+    context.fillText("Invalid difficulty! Please select difficulty", 10, 50);
+    context.fillText("from the difficulty select page.", 10, 100);
+  }
+}
+
+loadSprites();
