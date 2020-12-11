@@ -22,10 +22,12 @@ const sprites = {
 }
 
 function mazeFromSeed(initSeed, diff){
+
   //create new number generator object
   var rng = new Math.seedrandom(initSeed);
   var length = difficulty[diff][0];
   var width = difficulty[diff][1];
+
   //create 2d array to represent maze tiles
   var mazeTiles = new Array(length).fill(tiles.WALL);
   for(var i = 0; i < length; i++){
@@ -35,7 +37,7 @@ function mazeFromSeed(initSeed, diff){
   //initialize maze start for loop to build from
   mazeTiles[0][0] = tiles.FLOOR;
 
-  //valid counts the number of maze iterations
+  //maze checks istelf every loop to see if it can still generate new tiles
   var valid = true;
   while(valid){
 
@@ -43,11 +45,10 @@ function mazeFromSeed(initSeed, diff){
     var seedLength = Math.floor(rng() * length % length);
     var seedWidth = Math.floor(rng() * width % width);
 
-
     //initialize reject variable
     var reject = false;
 
-    //rejects the loop if a maze is adjacent, eliminating two-wide hallways < 100000
+    //rejects the loop if a maze is adjacent, eliminating two-wide hallways
     if(checkNeighbors(mazeTiles, seedLength, seedWidth)){
       reject = true;
     }
@@ -147,6 +148,7 @@ function mazeFromSeed(initSeed, diff){
   }
 mazeTiles[0][0] = tiles.START;
 
+//searches for the nearest floor tile and places an exit next to it
 var endLength = length - 1;
 var endWidth = width - 1;
 var i = 0;
@@ -215,6 +217,7 @@ function loadSprites(){
   }
 }
 
+//initiate the maze generation and display when the page loads
 function mazeInit(){
   var diff = sessionStorage.difficulty;
   if(difficulty.hasOwnProperty(diff)){
