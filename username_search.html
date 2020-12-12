@@ -35,7 +35,6 @@ $("#search").click(function(){
 
     for (i = 0; i < storage.usernames.length; i++) {
       let testname = storage.usernames[i].name
-      alert(testname + " " + searchedName)
       if (testname  === searchedName) {
         returnedUsernames.push(storage.usernames[i])
       }
@@ -43,8 +42,9 @@ $("#search").click(function(){
     if (returnedUsernames.length != 0) {
       let table = '';
       const rows = returnedUsernames.length;
+      table += '<tr><td>Name</td><td>Difficulty</td><td>Time</td></tr>'
       for (i = 0; i < rows; i++) {
-        table += '<tr><td>' + returnedUsernames[i].name + '</td><td>' + returnedUsernames[i].time + '</td><td>' + '<button>Select</button>' + '</td></tr>';
+        table += '<tr><td>' + returnedUsernames[i].name + '</td><td>' + returnedUsernames[i].difficulty + '</td><td>' + returnedUsernames[i].time + '</td><td>' + '<button>Select</button>' + '</td></tr>';
 
       }
       document.getElementById('usernamelist').innerHTML = table;
