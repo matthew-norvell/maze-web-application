@@ -28,8 +28,12 @@
 <!--TODO: Implement logic to receive data from maze page.-->
 <script>
 
-  const placeHolderSeed = "12345";
-  const placeHolderTime = "3:45";
+  // const placeHolderSeed = "12345";
+  // const placeHolderTime = "3:45";
+  // const placeHolderDifficulty = "hard"
+  // sessionStorage.setItem('seed', placeHolderSeed)
+  // sessionStorage.setItem('time', placeHolderTime)
+  // sessionStorage.setItem('difficulty', placeHolderDifficulty)
 
   $("#insert").click(function (){
     let storage
@@ -42,9 +46,10 @@
       };
     }
     let username = {
-      name: $("#username").val(),
-      seed: placeHolderSeed,
-      time: placeHolderTime
+      name: document.getElementById("username").value,
+      seed: sessionStorage.getItem('seed'),
+      time: sessionStorage.getItem('time'),
+      difficulty: sessionStorage.getItem('difficulty')
     };
 
     storage.usernames.push(username)
