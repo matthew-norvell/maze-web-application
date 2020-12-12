@@ -22,5 +22,3 @@ document.getElementById("seconds").innerHTML = pad(++sec % 60);
 
 
 }
-
-

@@ -3,7 +3,8 @@ const tiles = {
     WALL: 0,
     FLOOR: 1,
     START: 2,
-    END: 3
+    END: 3,
+    PLAYER: 4
 }
 
 //constants representing each difficulty by its maze size
@@ -18,8 +19,12 @@ const sprites = {
   0: "wall.png",
   1: "floor.png",
   2: "start.png",
-  3: "end.png"
+  3: "end.png",
+  4: "player.png"
 }
+
+//maze singleton to be accessed by all other functions
+var maze = null;
 
 function mazeFromSeed(initSeed, diff){
 
@@ -187,7 +192,7 @@ function checkNeighbors(arr, length, width){
 }
 
 //takes a seed and difficulty and displays it in the canvas with id "mazeCanvas"
-function loadMaze(maze){
+function loadMaze(){
   var scale = 16
   var mazeCanvas = document.getElementById("mazeCanvas");
   mazeCanvas.height = (maze[0].length + 2) * scale;
@@ -210,7 +215,7 @@ function loadMaze(maze){
 
 //loads the sprites for use in displaying the maze
 function loadSprites(){
-  for(var i = 0; i <= 3; i++){
+  for(var i = 0; i <= 4; i++){
     var img = new Image();
     img.src = sprites[i];
     sprites[i] = img;
@@ -223,7 +228,8 @@ function mazeInit(){
   if(difficulty.hasOwnProperty(diff)){
     var seed = Math.random();
     sessionStorage.seed = seed;
-    loadMaze(mazeFromSeed(seed, diff));
+    maze = mazeFromSeed(seed, diff);
+    loadMaze();
   } else {
     var canvas = document.getElementById("mazeCanvas");
     canvas.height = 200;
@@ -233,6 +239,56 @@ function mazeInit(){
     context.fillText("Invalid difficulty! Please select difficulty", 10, 50);
     context.fillText("from the difficulty select page.", 10, 100);
   }
+}
+
+function mazeInProgress(){
+  //start();
+  var x = 0;
+  var y = 0;
+  drawTile(x, y, tiles.PLAYER);
+  console.log("in progress");
+  window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+
+  drawTile(x, y, maze[x][y]);
+  switch (event.key) {
+    case "ArrowDown":
+      if(y < maze[0].length && maze[x][y + 1] != tiles.WALL){
+        y += 1;
+      }
+      break;
+    case "ArrowUp":
+      if(y > 0 && maze[x][y - 1] != tiles.WALL){
+        y -= 1;
+      }
+      break;
+    case "ArrowLeft":
+      if(x > 0 && maze[x - 1][y] != tiles.WALL){
+        x -= 1;
+      }
+      break;
+    case "ArrowRight":
+      if(x < maze.length && maze[x + 1][y] != tiles.WALL){
+        x += 1;
+      }
+      break;
+    default:
+      return;
+  }
+
+  drawTile(x, y, tiles.PLAYER);
+
+  event.preventDefault();
+  }, true);
+}
+
+function drawTile(x, y, tileID){
+  var scale = 16
+  var mazeCanvas = document.getElementById("mazeCanvas");
+  var mazeContext = mazeCanvas.getContext("2d");
+  mazeContext.drawImage(sprites[tileID], scale*(x + 1), scale*(y + 1));
 }
 
 loadSprites();

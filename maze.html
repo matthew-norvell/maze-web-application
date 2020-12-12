@@ -12,7 +12,9 @@
   <div class="container">
   Maze page
   <a href="complete.html"><button type="button" class="btn">Submit Score</button></a>
-  <div>
+
+  <!-- DEBUG: remove before final release -->
+  <div id="DEBUG">
     DEBUG
     <script>
     function genMaze() {
@@ -20,7 +22,8 @@
 
         for(i = 0; i < diff.length; i++) {
             if(diff[i].checked)
-            loadMaze(mazeFromSeed(Math.random(), diff[i].value))
+            maze = mazeFromSeed(Math.random(), diff[i].value);
+            loadMaze()
         }
     }
     </script>
@@ -33,6 +36,13 @@
     generate maze
     </button>
   </div>
+
+  <span id="minutes">00</span>:<span id="seconds">00</span>
+  <br>
+  <button onclick="mazeInProgress()">
+  Start Maze
+  </button>
+
   <canvas id="mazeCanvas">
   </canvas>
   </div>
