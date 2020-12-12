@@ -242,20 +242,17 @@ function mazeInit(){
 }
 
 function mazeInProgress(){
-  //start();
+  start();
   var x = 0;
   var y = 0;
   drawTile(x, y, tiles.PLAYER);
   console.log("in progress");
-  window.addEventListener("keydown", function (event) {
-  if (event.defaultPrevented) {
-    return;
-  }
+  window.addEventListener("keydown", function inputHandler(event) {
 
   drawTile(x, y, maze[x][y]);
   switch (event.key) {
     case "ArrowDown":
-      if(y < maze[0].length && maze[x][y + 1] != tiles.WALL){
+      if(y + 1 < maze[0].length && maze[x][y + 1] != tiles.WALL){
         y += 1;
       }
       break;
@@ -270,15 +267,20 @@ function mazeInProgress(){
       }
       break;
     case "ArrowRight":
-      if(x < maze.length && maze[x + 1][y] != tiles.WALL){
+      if(x + 1< maze.length && maze[x + 1][y] != tiles.WALL){
         x += 1;
       }
       break;
     default:
-      return;
   }
 
   drawTile(x, y, tiles.PLAYER);
+
+  if(maze[x][y] == tiles.END){
+    console.log("END");
+    window.removeEventListener("keydown", inputHandler, true);
+    stop();
+  }
 
   event.preventDefault();
   }, true);
