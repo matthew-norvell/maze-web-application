@@ -226,8 +226,10 @@ function loadSprites(){
 function mazeInit(){
   var diff = sessionStorage.difficulty;
   if(difficulty.hasOwnProperty(diff)){
-    var seed = Math.random();
-    sessionStorage.seed = seed;
+    if(sessionStorage.seed == null){
+      var seed = Math.random();
+      sessionStorage.seed = seed;
+    }
     maze = mazeFromSeed(seed, diff);
     loadMaze();
   } else {
@@ -246,7 +248,6 @@ function mazeInProgress(){
   var x = 0;
   var y = 0;
   drawTile(x, y, tiles.PLAYER);
-  console.log("in progress");
   window.addEventListener("keydown", function inputHandler(event) {
 
   drawTile(x, y, maze[x][y]);
@@ -277,9 +278,8 @@ function mazeInProgress(){
   drawTile(x, y, tiles.PLAYER);
 
   if(maze[x][y] == tiles.END){
-    console.log("END");
     window.removeEventListener("keydown", inputHandler, true);
-    stop();
+    sessionStorage.time = stop();
   }
 
   event.preventDefault();

@@ -15,10 +15,10 @@ let minutes= document.getElementById("minutes").innerHTML
 setTimeout(function () {
     clearInterval(timer);
 });
-alert("Your score is = "+minutes+":"+seconds)
-sec=-1
-document.getElementById("seconds").innerHTML = pad(++sec % 60);
-    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+alert("Your score is: "+minutes+":"+seconds)
 
+document.getElementById("seconds").innerHTML = pad(sec % 60);
+    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+return sec;
 
 }
