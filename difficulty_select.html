@@ -3,10 +3,56 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+        background-repeat: no-repeat;
+        background-size: 2000px ,2000px;
+
+
+    }
+    .login-box{
+    width: 280px;
+    height: 300px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+</style>
+<script>
+  function checkValue(){
+    var radios=document.getElementsByName("difficulty");
+      for(radio in radios){
+        if (radios[radio].checked){
+          sessionStorage.difficulty = radios[radio].value
+        }
+
+      }
+
+
+  }
+
+</script>
 </head>
 
-<body>
-difficulty_select
-      <a href="maze.html"><button type="button" class="btn">Begin Maze</button></a>
+<body background="mazeBack.jpg">
+<h1 style="text-align: center; color: white;">Select Difficulty</h1>
+
+     <form class="login-box">
+      <input type="radio" name="difficulty" value="EASY" checked="checked" onclick="checkValue()">
+      <label style="color:green;">EASY&nbsp;&nbsp;10*10</label>
+     </br>
+      <input type="radio" name="difficulty" value="MEDIUM" onclick="checkValue()">
+      <label style="color: yellow;">MEDIUM&nbsp;20*20</label>
+    </br>
+      <input type="radio" name="difficulty" value="HARD" onclick="checkValue()">
+      <label style="color: red;">HARD &nbsp;&nbsp;40*40</label>
+  </br>
+      <a href="maze.html" ><button type="button" class="btn" name="begin">Begin Maze</button></a>
+    </form>
 </body>
 </html>
