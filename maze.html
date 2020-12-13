@@ -21,9 +21,10 @@
         var diff = document.getElementsByName('difficulty');
 
         for(i = 0; i < diff.length; i++) {
-            if(diff[i].checked)
+            if(diff[i].checked) {
             maze = mazeFromSeed(Math.random(), diff[i].value);
-            loadMaze()
+            loadMaze();
+          }
         }
     }
     </script>
