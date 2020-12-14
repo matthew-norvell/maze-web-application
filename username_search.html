@@ -14,6 +14,8 @@
       </fieldset>
     <br>
     <button type="submit" id="search" class="btn">Search Username</button>
+    <a href="index.html"><button type="button" class="btn">Return to Landing Page</button></a>
+    <a href="maze.html"><button type="button" id="Play Maze" class="btn" disabled>Play Maze</button></a>
     <br>
     <table class="table table-bordered table-hover" id="usernamelist">
     </table>
@@ -44,7 +46,9 @@ $("#search").click(function(){
       const rows = returnedUsernames.length;
       table += '<tr><td>Name</td><td>Difficulty</td><td>Time</td></tr>'
       for (i = 0; i < rows; i++) {
-        table += '<tr><td>' + returnedUsernames[i].name + '</td><td>' + returnedUsernames[i].difficulty + '</td><td>' + returnedUsernames[i].time + '</td><td>' + '<button>Select</button>' + '</td></tr>';
+        table += '<tr><td>' + returnedUsernames[i].name + '</td><td>' +
+            returnedUsernames[i].difficulty + '</td><td>' + returnedUsernames[i].time +
+            '</td><td>' + '<button type="button" class="btn" id="'+ returnedUsernames[i].name +'" onclick="setMazeValues(this.id)">Select</button>' + '</td></tr>';
 
       }
       document.getElementById('usernamelist').innerHTML = table;
@@ -56,7 +60,18 @@ $("#search").click(function(){
 else {
     alert("No stored usernames");
   }
-})
+});
 
-
+function setMazeValues(name) {
+  alert(name + " selected")
+  let storage = JSON.parse(localStorage.getItem('usernames'))
+  for (let i = 0; i < storage.usernames.length; i++) {
+    if(storage.usernames[i].name == name) {
+      sessionStorage.setItem('seed', storage.usernames[i].seed);
+      sessionStorage.setItem('difficulty', storage.usernames[i].difficulty);
+      document.getElementById("Play Maze").disabled = false
+      break;
+    }
+  }
+}
 </script>
