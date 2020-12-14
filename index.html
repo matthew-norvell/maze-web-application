@@ -16,6 +16,16 @@
   <div class="container">
       <a href="difficulty_select.html"><button type="button" class="btn">Start Maze</button></a>
       <a href="username_search.html"><button type="button" class="btn">Search Username</button></a>
+      <button type="button" class="btn" onclick="resetUsernames()"> Reset Usernames</button>
   </div>
 </body>
 </html>
+
+<script>
+
+  function resetUsernames(){
+    localStorage.removeItem('usernames')
+    alert('Saved Usernames Deleted.')
+  }
+
+</script>

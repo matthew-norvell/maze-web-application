@@ -6,10 +6,21 @@
 </head>
 
 <body>
+<div class="page-header" align="center">
+  Maze Complete
+</div>
 
   <div class="container">
-    maze complete
+    <fieldset>
+      <legend>Insert Username</legend>
+      <input type="text" class="form-control" name="username" id="username">
+    </fieldset>
+    <br>
+
+    <button type="button" id="insert" class="btn btn-success">Insert</button>
+
     <a href="index.html"><button type="button" class="btn">Return to main page</button></a>
+
   </div>
 
   <script>
@@ -19,3 +30,41 @@
   </script>
 </body>
 </html>
+
+<!--TODO: Implement logic to receive data from maze page.-->
+<script>
+
+  // const placeHolderSeed = "12345";
+  // const placeHolderTime = "3:45";
+  // const placeHolderDifficulty = "hard"
+  // sessionStorage.setItem('seed', placeHolderSeed)
+  // sessionStorage.setItem('time', placeHolderTime)
+  // sessionStorage.setItem('difficulty', placeHolderDifficulty)
+
+  $("#insert").click(function (){
+    let storage
+    if (localStorage.getItem('usernames')){
+      storage = JSON.parse(localStorage.getItem('usernames'))
+    }
+    else {
+      storage = {
+        usernames: []
+      };
+    }
+    let username = {
+      name: document.getElementById("username").value,
+      seed: sessionStorage.getItem('seed'),
+      time: sessionStorage.getItem('time'),
+      difficulty: sessionStorage.getItem('difficulty')
+    };
+
+    storage.usernames.push(username)
+
+    alert(JSON.stringify(storage))
+
+    localStorage.setItem('usernames', JSON.stringify(storage))
+    alert("stored string")
+
+  })
+
+</script>
