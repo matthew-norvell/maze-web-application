@@ -24,9 +24,7 @@
   </div>
 
   <script>
-  sessionStorage.difficulty = null;
-  sessionStorage.seed = null;
-  sessionStorage.time = null;
+
   </script>
 </body>
 </html>
@@ -65,6 +63,9 @@
     localStorage.setItem('usernames', JSON.stringify(storage))
     alert("stored string")
 
+    sessionStorage.difficulty = null;
+    sessionStorage.seed = null;
+    sessionStorage.time = null;
   })
 
 </script>

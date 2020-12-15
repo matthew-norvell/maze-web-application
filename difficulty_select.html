@@ -43,16 +43,16 @@
 <h1 style="text-align: center; color: white;">Select Difficulty</h1>
 
      <form class="login-box">
-      <input type="radio" name="difficulty" value="EASY" checked="checked" onclick="checkValue()">
+      <input type="radio" name="difficulty" value="EASY" checked="checked">
       <label style="color:green;">EASY&nbsp;&nbsp;10*10</label>
      </br>
-      <input type="radio" name="difficulty" value="MEDIUM" onclick="checkValue()">
+      <input type="radio" name="difficulty" value="MEDIUM">
       <label style="color: yellow;">MEDIUM&nbsp;20*20</label>
     </br>
-      <input type="radio" name="difficulty" value="HARD" onclick="checkValue()">
+      <input type="radio" name="difficulty" value="HARD">
       <label style="color: red;">HARD &nbsp;&nbsp;40*40</label>
   </br>
-      <a href="maze.html" ><button type="button" class="btn" name="begin">Begin Maze</button></a>
+      <a href="maze.html" ><button type="button" class="btn" name="begin" onclick="checkValue()">Begin Maze</button></a>
     </form>
 </body>
 </html>
