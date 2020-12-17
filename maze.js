@@ -224,11 +224,18 @@ function loadSprites(){
 
 //initiate the maze generation and display when the page loads
 function mazeInit(){
-  var diff = sessionStorage.difficulty;
-  var seed = Math.random();
-  if(difficulty.hasOwnProperty(diff)){   
-    sessionStorage.seed = seed;
-    maze = mazeFromSeed(seed, diff);
+  var diff = sessionStorage.getItem('difficulty');
+  var seed;
+  if(difficulty.hasOwnProperty(diff)){
+    if(sessionStorage.getItem('seed')){
+      seed = Number(sessionStorage.getItem('seed'));
+      maze = mazeFromSeed(seed, diff)
+    }
+    else {
+      seed = Math.random();
+      maze = mazeFromSeed(seed, diff);
+      sessionStorage.setItem('seed', seed)
+    }
     loadMaze();
   } else {
     var canvas = document.getElementById("mazeCanvas");
