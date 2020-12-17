@@ -1,2 +1,5 @@
 Our project's github page
 https://github.com/matthew-norvell/maze-web-application
+
+Git Commits
+https://github.com/matthew-norvell/maze-web-application/commits/main
