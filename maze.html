@@ -17,6 +17,7 @@
       Timer:
     <span id="minutes">00</span>:<span id="seconds">00</span>
     </div>
+    <br>
   <!-- DEBUG: remove before final release -->
 <!--  <div id="DEBUG">-->
 <!--    DEBUG-->
@@ -47,7 +48,8 @@
   </canvas>
     <div class="container">
       <br>
-      <button onclick="mazeInProgress()" class="left">Start Maze</button>
+      <button onclick="mazeInProgress()" class="btn" id="start">Start Maze</button>
+      <a href="difficulty_select.html"><button type="button" class="btn" id="DiffSelect">Select Difficulty</button></a>
       <a href="complete.html"><button type="button" class="btn" id="submit" disabled>Submit Score</button></a>
     </div>
 

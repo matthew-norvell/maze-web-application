@@ -249,6 +249,7 @@ function mazeInit(){
 }
 
 function mazeInProgress(){
+  document.getElementById("start").disabled = true
   start();
   var x = 0;
   var y = 0;
