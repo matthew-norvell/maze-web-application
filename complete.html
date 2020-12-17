@@ -63,9 +63,9 @@
     localStorage.setItem('usernames', JSON.stringify(storage))
     alert("stored string")
 
-    sessionStorage.difficulty = null;
-    sessionStorage.seed = null;
-    sessionStorage.time = null;
+    sessionStorage.removeItem('seed')
+    sessionStorage.removeItem('time')
+    sessionStorage.removeItem('difficulty')
   })
 
 </script>
