@@ -4,26 +4,6 @@
   <link rel="stylesheet" href="AppStyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    body {
-        background-repeat: no-repeat;
-        background-size: 2000px ,2000px;
-
-
-    }
-    .login-box{
-    width: 280px;
-    height: 300px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    box-sizing: border-box;
-    padding: 70px 30px;
-}
-</style>
 <script>
   function checkValue(){
     var radios=document.getElementsByName("difficulty");
@@ -40,20 +20,25 @@
 </script>
 </head>
 
-<body background="mazeBack.jpg">
-<h1 style="text-align: center; color: white;">Select Difficulty</h1>
+<body>
+<h1 style="text-align: center; Color: black">Select Difficulty</h1>
 
      <form class="login-box">
+       <div class="center">
       <input type="radio" name="difficulty" value="EASY" checked="checked">
-      <label style="color:green;">EASY&nbsp;&nbsp;10*10</label>
+      <label style="color:green;">EASY&nbsp;&nbsp;20*20</label>
      </br>
       <input type="radio" name="difficulty" value="MEDIUM">
-      <label style="color: yellow;">MEDIUM&nbsp;20*20</label>
+      <label style="color: yellow;">MEDIUM&nbsp;40*40</label>
     </br>
       <input type="radio" name="difficulty" value="HARD">
-      <label style="color: #ff0000;">HARD &nbsp;&nbsp;40*40</label>
+      <label style="color: #ff0000;">HARD &nbsp;&nbsp;40*60</label>
   </br>
       <a href="maze.html" ><button type="button" class="btn" name="begin" onclick="checkValue()">Begin Maze</button></a>
+         <br>
+         <br>
+       <a href="index.html"><button type="button" class="btn">Return to Landing Page</button></a>
+       </div>
     </form>
 </body>
 </html>
