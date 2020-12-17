@@ -10,4 +10,4 @@ Daniyal Abbas
 Patric Collins
 Matthew Norvell
 
-Currently, the project is in the prototype phase. We are building up most functionality right now.
+Currently, the project is in the finishing. We are polishing up most functionality and completing documentation.
