@@ -18,31 +18,6 @@
     <span id="minutes">00</span>:<span id="seconds">00</span>
     </div>
     <br>
-  <!-- DEBUG: remove before final release -->
-<!--  <div id="DEBUG">-->
-<!--    DEBUG-->
-<!--    <script>-->
-<!--    function genMaze() {-->
-<!--        var diff = document.getElementsByName('difficulty');-->
-
-<!--        for(i = 0; i < diff.length; i++) {-->
-<!--            if(diff[i].checked) {-->
-<!--            maze = mazeFromSeed(Math.random(), diff[i].value);-->
-<!--            loadMaze();-->
-<!--          }-->
-<!--        }-->
-<!--    }-->
-<!--    </script>-->
-<!--    seed:-->
-<!--    <input type="text" id="seed">-->
-<!--    <input type="radio" name="difficulty" value="EASY">easy-->
-<!--    <input type="radio" name="difficulty" value="MEDIUM">medium-->
-<!--    <input type="radio" name="difficulty" value="HARD">hard-->
-<!--    <button type="button" onclick="genMaze()">-->
-<!--    generate maze-->
-<!--    </button>-->
-<!--  </div>-->
-
 
   <canvas id="mazeCanvas">
   </canvas>
@@ -55,7 +30,7 @@
         <h3>How To</h3>
         When you're ready, press the start maze button. Once done, the timer will begin and your sprite will appear
         on the start tile in the top left corner. Once the game has begun you can use the arrow keys on your keyboard to
-        move your sprite through the maze. Your goal is to reach the exit tile near the bottom right corner. The timer will
+        move your sprite through the maze. You may need to click the maze to use the arrow keys. Your goal is to reach the exit tile near the bottom right corner. The timer will
         tick until this tile is reached. Once the maze is completed, press the submit score button to move to the next screen.
       </div>
     </div>
