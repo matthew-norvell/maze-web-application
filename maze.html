@@ -8,46 +8,51 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body onload="mazeInit()">
+<body onload="mazeInit()" class="container">
 
-  <div class="container">
-  Maze page
-  <a href="complete.html"><button type="button" class="btn" id="submit" disabled>Submit Score</button></a>
-
+  <div class="center">
+    <h1>Maze page</h1>
+    <br>
+    <div>
+      Timer:
+    <span id="minutes">00</span>:<span id="seconds">00</span>
+    </div>
   <!-- DEBUG: remove before final release -->
-  <div id="DEBUG">
-    DEBUG
-    <script>
-    function genMaze() {
-        var diff = document.getElementsByName('difficulty');
+<!--  <div id="DEBUG">-->
+<!--    DEBUG-->
+<!--    <script>-->
+<!--    function genMaze() {-->
+<!--        var diff = document.getElementsByName('difficulty');-->
 
-        for(i = 0; i < diff.length; i++) {
-            if(diff[i].checked) {
-            maze = mazeFromSeed(Math.random(), diff[i].value);
-            loadMaze();
-          }
-        }
-    }
-    </script>
-    seed:
-    <input type="text" id="seed">
-    <input type="radio" name="difficulty" value="EASY">easy
-    <input type="radio" name="difficulty" value="MEDIUM">medium
-    <input type="radio" name="difficulty" value="HARD">hard
-    <button type="button" onclick="genMaze()">
-    generate maze
-    </button>
-  </div>
+<!--        for(i = 0; i < diff.length; i++) {-->
+<!--            if(diff[i].checked) {-->
+<!--            maze = mazeFromSeed(Math.random(), diff[i].value);-->
+<!--            loadMaze();-->
+<!--          }-->
+<!--        }-->
+<!--    }-->
+<!--    </script>-->
+<!--    seed:-->
+<!--    <input type="text" id="seed">-->
+<!--    <input type="radio" name="difficulty" value="EASY">easy-->
+<!--    <input type="radio" name="difficulty" value="MEDIUM">medium-->
+<!--    <input type="radio" name="difficulty" value="HARD">hard-->
+<!--    <button type="button" onclick="genMaze()">-->
+<!--    generate maze-->
+<!--    </button>-->
+<!--  </div>-->
 
-  <span id="minutes">00</span>:<span id="seconds">00</span>
-  <br>
-  <button onclick="mazeInProgress()">
-  Start Maze
-  </button>
 
   <canvas id="mazeCanvas">
   </canvas>
+    <div class="container">
+      <br>
+      <button onclick="mazeInProgress()" class="left">Start Maze</button>
+      <a href="complete.html"><button type="button" class="btn" id="submit" disabled>Submit Score</button></a>
+    </div>
+
   </div>
+
 </body>
   <script src="maze.js"></script>
   <script src="timerFunction.js"></script>
