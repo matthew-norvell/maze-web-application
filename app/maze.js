@@ -173,6 +173,12 @@ while(mazeTiles[endLength][endWidth] != tiles.END){
 return mazeTiles;
 }
 
+function resetParameters(){
+  sessionStorage.removeItem('seed');
+  sessionStorage.removeItem('time');
+  sessionStorage.removeItem('difficulty');
+}
+
 //takes a 2d array an a pair of coordinates and returns the number of adjacent tiles
 function checkNeighbors(arr, length, width){
   var tile_total = 0
