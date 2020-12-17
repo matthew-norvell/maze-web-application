@@ -28,7 +28,7 @@
     var radios=document.getElementsByName("difficulty");
       for(radio in radios){
         if (radios[radio].checked){
-          sessionStorage.difficulty = radios[radio].value
+          sessionStorage.setItem('difficulty', radios[radio].value)
         }
 
       }
@@ -50,7 +50,7 @@
       <label style="color: yellow;">MEDIUM&nbsp;20*20</label>
     </br>
       <input type="radio" name="difficulty" value="HARD">
-      <label style="color: red;">HARD &nbsp;&nbsp;40*40</label>
+      <label style="color: #ff0000;">HARD &nbsp;&nbsp;40*40</label>
   </br>
       <a href="maze.html" ><button type="button" class="btn" name="begin" onclick="checkValue()">Begin Maze</button></a>
     </form>
