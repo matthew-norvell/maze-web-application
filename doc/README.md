@@ -10,4 +10,4 @@ Daniyal Abbas
 Patric Collins
 Matthew Norvell
 
-Currently, the project is in the finishing. We are polishing up most functionality and completing documentation.
+Currently, the project is finished!
