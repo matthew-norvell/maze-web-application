@@ -1,25 +1,38 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="AppStyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
+<div class="landing">
   <div class="container">
-      <fieldset>
-        <legend>Username Search</legend>
-        <input type="text" class="form-control" id="usernameSearch" placeholder="Insert Username"/>
-      </fieldset>
+
     <br>
-    <button type="submit" id="search" class="btn">Search Username</button>
-    <a href="index.html"><button type="button" class="btn">Return to Landing Page</button></a>
-    <a href="maze.html"><button type="button" id="Play Maze" class="btn" disabled>Play Maze</button></a>
+    <div class="center">
+      <fieldset>
+        <h1>Username Search</h1>
+        <input type="text" class="form-control" size="50px" id="usernameSearch" placeholder="Insert Username"/>
+      </fieldset>
+      <br>
+      <button type="submit" id="search" class="btn">Search Username</button>
+      <a href="index.html"><button type="button" class="btn">Return to Landing Page</button></a>
+      <a href="maze.html"><button type="button" id="Play Maze" class="btn" disabled>Play Maze</button></a>
+    </div>
     <br>
     <table class="table table-bordered table-hover" id="usernamelist">
     </table>
+    <div>
+      <h3>How To</h3>
+      Input a username. If the username has any mazes associated with it they will appear here. If you would like to replay a maze.
+      Press the select button by the username you would like to play on the table, then press play maze.
+
+    </div>
   </div>
+</div>
 </body>
 </html>
 

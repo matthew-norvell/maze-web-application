@@ -1,48 +1,42 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="AppStyle.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <div class="page-header" align="center">
-  Maze Complete
+  <h1>Maze Complete</h1>
+
 </div>
 
   <div class="container">
     <fieldset>
-      <legend>Insert Username</legend>
-      <input type="text" class="form-control" name="username" id="username">
+      <input type="text" class="form-control" name="username" id="username" placeholder="insert username"/>
     </fieldset>
     <br>
 
-    <button type="button" id="insert" class="btn btn-success">Insert</button>
+    <button type="button" id="insert" class="btn">Insert</button>
 
     <a href="index.html"><button type="button" class="btn">Return to main page</button></a>
 
+    <div class="about">
+      <h3>How To</h3>
+      Insert a username to save your maze score. You can search for and replay this maze later in the username search screen.
+    </div>
   </div>
-
-  <script>
-  sessionStorage.difficulty = null;
-  sessionStorage.seed = null;
-  sessionStorage.time = null;
-  </script>
 </body>
 </html>
-
-<!--TODO: Implement logic to receive data from maze page.-->
 <script>
-
-  // const placeHolderSeed = "12345";
-  // const placeHolderTime = "3:45";
-  // const placeHolderDifficulty = "hard"
-  // sessionStorage.setItem('seed', placeHolderSeed)
-  // sessionStorage.setItem('time', placeHolderTime)
-  // sessionStorage.setItem('difficulty', placeHolderDifficulty)
-
   $("#insert").click(function (){
     let storage
+    let name = document.getElementById("username").value
+    if(name === ""){
+      alert("Please enter a username");
+      return
+    }
     if (localStorage.getItem('usernames')){
       storage = JSON.parse(localStorage.getItem('usernames'))
     }
@@ -52,19 +46,18 @@
       };
     }
     let username = {
-      name: document.getElementById("username").value,
+      name: name,
       seed: sessionStorage.getItem('seed'),
       time: sessionStorage.getItem('time'),
       difficulty: sessionStorage.getItem('difficulty')
     };
 
     storage.usernames.push(username)
-
-    alert(JSON.stringify(storage))
-
+    alert("Maze Saved")
     localStorage.setItem('usernames', JSON.stringify(storage))
-    alert("stored string")
-
+    document.getElementById("insert").disabled = true
+    sessionStorage.removeItem('seed')
+    sessionStorage.removeItem('time')
+    sessionStorage.removeItem('difficulty')
   })
-
 </script>

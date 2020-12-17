@@ -224,13 +224,18 @@ function loadSprites(){
 
 //initiate the maze generation and display when the page loads
 function mazeInit(){
-  var diff = sessionStorage.difficulty;
+  var diff = sessionStorage.getItem('difficulty');
+  var seed;
   if(difficulty.hasOwnProperty(diff)){
-    if(sessionStorage.seed == null){
-      var seed = Math.random();
-      sessionStorage.seed = seed;
+    if(sessionStorage.getItem('seed')){
+      seed = Number(sessionStorage.getItem('seed'));
+      maze = mazeFromSeed(seed, diff)
     }
-    maze = mazeFromSeed(seed, diff);
+    else {
+      seed = Math.random();
+      maze = mazeFromSeed(seed, diff);
+      sessionStorage.setItem('seed', seed)
+    }
     loadMaze();
   } else {
     var canvas = document.getElementById("mazeCanvas");
@@ -244,6 +249,7 @@ function mazeInit(){
 }
 
 function mazeInProgress(){
+  document.getElementById("start").disabled = true
   start();
   var x = 0;
   var y = 0;
@@ -280,6 +286,7 @@ function mazeInProgress(){
   if(maze[x][y] == tiles.END){
     window.removeEventListener("keydown", inputHandler, true);
     sessionStorage.time = stop();
+    document.getElementById("submit").removeAttribute("disabled");
   }
 
   event.preventDefault();

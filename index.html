@@ -1,24 +1,33 @@
 <html>
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="page-header">
-    MAZE
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="AppStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body class="body">
+    <div class="landing">
+      <div class="center">
+        <h1>Maze Application</h1>
+        <div class="btn-group">
+          <a href="difficulty_select.html"><button type="button" >Start Maze</button></a>
+          <a href="username_search.html"><button type="button" >Search Username</button></a>
+          <button type="button" onclick="resetUsernames()"> Reset Usernames</button>
+        </div>
+      </div>
     </div>
-    maze
-  </div>
-  <div class="container">
-      <a href="difficulty_select.html"><button type="button" class="btn">Start Maze</button></a>
-      <a href="username_search.html"><button type="button" class="btn">Search Username</button></a>
-      <button type="button" class="btn" onclick="resetUsernames()"> Reset Usernames</button>
-  </div>
-</body>
+      <br>
+    <div class="container">
+      <div class="about">
+        <h2>
+          About
+        </h2>
+        This is an application that allows the user to play through 2d mazes of three difficulty levels. Once a maze is completed
+        the user can then save the seed used to generate that maze under a username. Usernames can then be searched for later using
+        the search username page. The user can then select a previously saved maze and play through it again.
+      </div>
+    </div>
+  </body>
 </html>
 
 <script>

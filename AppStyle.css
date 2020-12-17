@@ -1,0 +1,31 @@
+.body {
+  margin: auto;
+}
+.landing {
+  margin-top: 300px;
+}
+.center {
+  text-align: center;
+}
+.btn-group button {
+  margin-inline: auto;
+  margin-bottom: 15px;
+  display: block;
+}
+.about{
+  padding: 90px;
+}
+
+.login-box{
+  width: 280px;
+  height: 300px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  padding-top: 50px;
+
+}
