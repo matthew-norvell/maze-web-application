@@ -14,8 +14,7 @@
 
   <div class="container">
     <fieldset>
-      <legend>Insert Username</legend>
-      <input type="text" class="form-control" name="username" id="username"/>
+      <input type="text" class="form-control" name="username" id="username" placeholder="insert username"/>
     </fieldset>
     <br>
 
@@ -23,11 +22,11 @@
 
     <a href="index.html"><button type="button" class="btn">Return to main page</button></a>
 
+    <div class="about">
+      <h3>How To</h3>
+      Insert a username to save your maze score. You can search for and replay this maze later in the username search screen.
+    </div>
   </div>
-
-  <script>
-
-  </script>
 </body>
 </html>
 <script>
@@ -54,12 +53,8 @@
     };
 
     storage.usernames.push(username)
-
-    alert(JSON.stringify(storage))
-
+    alert("Maze Saved")
     localStorage.setItem('usernames', JSON.stringify(storage))
-    alert("stored string")
-
     document.getElementById("insert").disabled = true
     sessionStorage.removeItem('seed')
     sessionStorage.removeItem('time')
